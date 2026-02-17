@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 190 25% 92%;
+    --foreground: 200 20% 15%;
+
+    --card: 195 30% 96%;
+    --card-foreground: 200 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 20% 15%;
+
+    --primary: 194 30% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 25% 85%;
+    --secondary-foreground: 200 20% 15%;
+
+    --muted: 195 15% 88%;
+    --muted-foreground: 200 10% 40%;
+
+    --accent: 194 35% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 194 20% 78%;
+    --input: 194 20% 78%;
+    --ring: 194 30% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 195 25% 95%;
+    --sidebar-foreground: 200 20% 15%;
+    --sidebar-primary: 194 30% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 195 25% 88%;
+    --sidebar-accent-foreground: 200 20% 15%;
+    --sidebar-border: 194 20% 78%;
+    --sidebar-ring: 194 30% 50%;
+
+    /* Custom tokens */
+    --hero-bg: 194 30% 50%;
+    --hero-foreground: 0 0% 100%;
+    --hero-bubble: 195 30% 90%;
+    --lesson-card-bg: 195 35% 97%;
+    --completion-bg: 194 30% 50%;
+  }
+
+  .dark {
+    --background: 200 20% 10%;
+    --foreground: 195 20% 90%;
+    --card: 200 20% 14%;
+    --card-foreground: 195 20% 90%;
+    --popover: 200 20% 14%;
+    --popover-foreground: 195 20% 90%;
+    --primary: 194 30% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 200 15% 20%;
+    --secondary-foreground: 195 20% 90%;
+    --muted: 200 15% 20%;
+    --muted-foreground: 195 15% 60%;
+    --accent: 194 30% 45%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 200 15% 25%;
+    --input: 200 15% 25%;
+    --ring: 194 30% 55%;
+    --sidebar-background: 200 20% 10%;
+    --sidebar-foreground: 195 20% 90%;
+    --sidebar-primary: 194 30% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 200 15% 20%;
+    --sidebar-accent-foreground: 195 20% 90%;
+    --sidebar-border: 200 15% 25%;
+    --sidebar-ring: 194 30% 55%;
+    --hero-bg: 194 30% 35%;
+    --hero-foreground: 0 0% 100%;
+    --hero-bubble: 195 25% 75%;
+    --lesson-card-bg: 200 20% 14%;
+    --completion-bg: 194 30% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
