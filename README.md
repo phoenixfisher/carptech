@@ -14,9 +14,9 @@ CARP Tech is a guided learning platform that helps adults and seniors build conf
 ## Architecture Diagram
 ```mermaid
 flowchart LR
-    U[User Browser] -->|HTTP requests| F[React Frontend (Vite)]
+    U[User Browser] -->|HTTP requests| F[React Frontend - Vite]
     F -->|fetch/axios to /api| B[Node + Express Backend]
-    B -->|SQL queries| D[(PostgreSQL Database)]
+    B -->|SQL queries| D[PostgreSQL Database]
     D -->|query results| B
     B -->|JSON responses| F
     F -->|updated UI state| U
