@@ -78,9 +78,10 @@ The implemented vertical slice is the existing **Reset Password** button in Sett
 
 1. Start the app with `npm run dev`.
 2. Open `http://localhost:8080/login`.
-3. Log in using a seeded account:
-- `user` / `user`
-- `admin` / `admin`
+3. Log in using an existing account in your database. On a fresh setup, default seeded credentials are:
+- Username: `user` / Password: `user`
+- Username: `admin` / Password: `admin`
+    - If you previously changed these passwords, use the updated credentials instead.
 4. Open Settings from the user dropdown in the navbar.
 5. Submit the reset password form and click `Reset Password`.
 6. Confirm the request hits backend endpoint `POST /api/auth/change-password` in browser DevTools.
@@ -89,7 +90,3 @@ The implemented vertical slice is the existing **Reset Password** button in Sett
 psql -d carptech -c "SELECT username, password_hash, created_at FROM users ORDER BY id;"
 ```
 8. Log out, then log in again with the new password to confirm persistence.
-
-## Deliverable Reminder
-- Share the GitHub repository with `taforlauracutler`.
-- Submit a direct link to this README in your assignment comments.
