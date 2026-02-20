@@ -1,7 +1,7 @@
 # CARP Tech
 
 ## App Summary
-CARP Tech is a guided learning platform that helps adults and seniors build confidence with everyday technology. Many people want to use email, video calling, web search, and smartphone features but feel overwhelmed by technical jargon. Our app solves this by offering plain-language, step-by-step lessons with clear objectives and progress indicators. Learners can move through tutorials at their own pace and receive a completion flow at the end of each lesson. For this backend milestone, we implemented a vertical slice where an existing lesson rating button updates persistent data in the database. The primary users are beginner technology learners and caregivers or community organizations that support digital literacy.
+CARP Tech is a guided learning platform designed to help adults and seniors build confidence with everyday technology like email, video calls, and web browsing without overwhelming jargon. The app delivers clear, step-by-step lessons with defined objectives, progress tracking, and a structured completion flow so learners can move at their own pace. In this backend milestone, we implemented a full vertical slice that connects the lesson rating button to persistent database updates, supporting both learners and the caregivers or organizations who assist them.
 
 ## Tech Stack
 - Frontend: React, TypeScript, Vite, Tailwind CSS, shadcn/ui, React Router
