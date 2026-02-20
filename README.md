@@ -1,36 +1,35 @@
 # CARP Tech
 
 ## App Summary
-CARP Tech is a guided learning platform designed to help adults and seniors build confidence with everyday technology like email, video calls, and web browsing without overwhelming jargon. The app delivers clear, step-by-step lessons with defined objectives, progress tracking, and a structured completion flow so learners can move at their own pace. In this backend milestone, we implemented a full vertical slice that connects the lesson rating button to persistent database updates, supporting both learners and the caregivers or organizations who assist them.
+CARP Tech helps beginner technology users, especially older adults, learn everyday digital skills through simple tutorials. Many users are left behind by tools that assume prior technical experience. This app addresses that gap with plain-language lessons, step-by-step objectives, and a clean interface focused on confidence-building. Users can browse tutorials, open guided lesson flows, and track progress through each lesson step. The current backend milestone adds real server and database behavior so key actions are no longer frontend-only. Specifically, the settings flow now updates user passwords in PostgreSQL through API calls. This project is moving from prototype behavior to persistent full-stack functionality.
 
 ## Tech Stack
 - Frontend: React, TypeScript, Vite, Tailwind CSS, shadcn/ui, React Router
-- Backend: Node.js, Express (REST API)
-- Database: PostgreSQL with SQL scripts in `db/schema.sql` and `db/seed.sql`
-- Authentication: None for this milestone
-- External Services/APIs: None for this milestone
-- Testing/Tooling: Vitest, ESLint
+- Backend: Node.js, Express
+- Database: PostgreSQL (`pg` driver)
+- Authentication: JWT (login/register/me endpoints)
+- External services/APIs: none
+- Tooling: ESLint, Vitest, concurrently, dotenv
 
 ## Architecture Diagram
 ```mermaid
 flowchart LR
-    U[User Browser] -->|HTTP requests| F[React Frontend - Vite]
-    F -->|fetch/axios to /api| B[Node + Express Backend]
-    B -->|SQL queries| D[PostgreSQL Database]
-    D -->|query results| B
-    B -->|JSON responses| F
-    F -->|updated UI state| U
+    A[User] -->|Browser interaction| B[React Frontend :8080]
+    B -->|HTTP /api via Vite proxy| C[Express Backend :3001]
+    C -->|SQL queries| D[PostgreSQL]
+    D -->|Rows/results| C
+    C -->|JSON response| B
+    B -->|Updated UI state| A
 ```
 
 ## Prerequisites
-Install the following software before running locally:
 - Node.js (LTS): https://nodejs.org/en/download
-- npm (included with Node.js): https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+- npm (included with Node): https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 - PostgreSQL: https://www.postgresql.org/download/
-- `psql` CLI in your PATH: https://www.postgresql.org/docs/current/app-psql.html
+- `psql` CLI on PATH: https://www.postgresql.org/docs/current/app-psql.html
 - Git: https://git-scm.com/downloads
 
-Verify installation:
+Verify installations:
 ```bash
 node -v
 npm -v
@@ -39,75 +38,58 @@ git --version
 ```
 
 ## Installation and Setup
-1. Clone the repository:
+1. Clone and enter the repository.
 ```bash
 git clone https://github.com/phoenixfisher/carptech.git
 cd carptech
 ```
 
-2. Install frontend dependencies:
+2. Install dependencies.
 ```bash
 npm install
 ```
 
-3. Install backend dependencies (if backend is in `server/`):
+3. Create a local environment file.
 ```bash
-cd server
-npm install
-cd ..
+cp .env.example .env
 ```
 
-4. Create a PostgreSQL database:
+4. Update `.env` with your PostgreSQL username/password if needed.
+
+5. Make sure PostgreSQL is running, then run setup.
 ```bash
-createdb carptech
+npm run setup
 ```
 
-5. Create tables and seed sample data:
-```bash
-psql -d carptech -f db/schema.sql
-psql -d carptech -f db/seed.sql
-```
-
-6. Configure environment variables (example):
-```bash
-# server/.env
-DATABASE_URL=postgres://<username>:<password>@localhost:5432/carptech
-PORT=3001
-```
+Note: this branch currently initializes database tables and seed users from server code (`server/index.js`) instead of `db/schema.sql` and `db/seed.sql`.
 
 ## Running the Application
-Start backend and frontend in separate terminals.
-
-Terminal 1 (backend):
-```bash
-cd server
-npm run dev
-```
-
-Terminal 2 (frontend):
+Run frontend and backend together:
 ```bash
 npm run dev
 ```
 
-Open the frontend at `http://localhost:8080` (or the Vite URL shown in your terminal).  
-Backend API should run at `http://localhost:3001`.
+Open:
+- Frontend: `http://localhost:8080`
+- Backend API base: `http://localhost:3001/api`
 
 ## Verifying the Vertical Slice
-This milestone wires one existing UI button to persistent backend behavior. In our case, the lesson rating button on the completion page now saves to PostgreSQL.
+The implemented vertical slice is the existing **Reset Password** button in Settings.
 
-1. Open a lesson and progress through all steps until the completion screen (`/lesson/:id/complete`).
-2. Click a star rating (existing button in the UI).
-3. Confirm in browser DevTools that a request is sent to the backend endpoint (for example, `POST /api/lessons/:id/rating`).
-4. Confirm the frontend updates with the saved value returned from the backend.
-5. Verify the database row was updated:
+1. Start the app with `npm run dev`.
+2. Open `http://localhost:8080/login`.
+3. Log in using a seeded account:
+- `user` / `user`
+- `admin` / `admin`
+4. Open Settings from the user dropdown in the navbar.
+5. Submit the reset password form and click `Reset Password`.
+6. Confirm the request hits backend endpoint `POST /api/auth/change-password` in browser DevTools.
+7. Verify data changed in PostgreSQL:
 ```bash
-psql -d carptech -c "SELECT lesson_id, rating, updated_at FROM lesson_ratings ORDER BY updated_at DESC LIMIT 5;"
+psql -d carptech -c "SELECT username, password_hash, created_at FROM users ORDER BY id;"
 ```
-6. Refresh the page and confirm the saved rating is still shown, proving persistence.
+8. Log out, then log in again with the new password to confirm persistence.
 
-## Repository Access
-Add the instructor GitHub account as a collaborator:
-- `taforlauracutler`
-
-## Team
-- Phoenix Fisher
+## Deliverable Reminder
+- Share the GitHub repository with `taforlauracutler`.
+- Submit a direct link to this README in your assignment comments.
