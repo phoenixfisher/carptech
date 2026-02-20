@@ -63,6 +63,22 @@ function requireAuth(req, res, next) {
 
 // ── Routes ─────────────────────────────────────────────────────────────────────
 
+// GET /api
+app.get('/api', (_req, res) => {
+  res.json({
+    ok: true,
+    health: 'healthy',
+    message: 'Carptech API',
+    note: 'Use an API client for POST routes and include a Bearer token for protected routes.',
+    docs: {
+      authRegister: { method: 'POST', path: '/api/auth/register', auth: false },
+      authLogin: { method: 'POST', path: '/api/auth/login', auth: false },
+      authMe: { method: 'GET', path: '/api/auth/me', auth: true },
+      authChangePassword: { method: 'POST', path: '/api/auth/change-password', auth: false },
+    },
+  });
+});
+
 // POST /api/auth/register
 app.post('/api/auth/register', async (req, res) => {
   const { username, password } = req.body;
